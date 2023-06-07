@@ -1,0 +1,84 @@
+.demo-inline-calendar-card {
+    width: 200px;
+  }
+  #contenedor {
+    float: left;
+    width: auto;
+    }
+  
+    .contenedor{
+    width:90%;
+    
+    margin: 50px;
+  }
+  mat-grid-tile {
+    
+    background: lightblue;
+  }
+  .mat-grid-tile-content{
+    display:block;
+  }
+
+  #menu {
+    float: left;
+    width: 20%;
+  }
+
+  .diario {
+    padding: 10px;
+    float: left;
+    width: 100%;
+  }
+
+  .nav-link{
+    color: gray;
+  }
+  .activo {
+    background-color: #ccc;  
+  }
+  .activo a {
+    color: green;
+  }
+  ul {
+    list-style: none;
+    padding:0px;
+  }
+ 
+  .mat-toolbar-row, .mat-toolbar-single-row{
+    height: auto;
+  }
+  .title-center {
+    margin: 0 auto;
+    }
+
+ 
+    
+  .mat-column-hora_desde {
+      justify-content: center;
+      flex: 0 0 20%;
+    }
+    .mat-column-paciente {
+      justify-content: Left;
+      flex: 0 0 30%;
+    }
+   
+    .customIcon {
+      height: auto;
+      font-size:12px;
+    }
+    .mat-row{
+      min-height:min-content;
+       height: 60px;
+       line-height: 10px;
+       vertical-align: top;
+    }
+    caption{
+      vertical-align: top;
+      line-height: 20px;
+    }
+    .example-margin {
+      margin: 0 12px;
+    }
+
+ 
+  

@@ -1,0 +1,12 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="large" color="#fff" type="timer" [fullScreen]="false">
+    <p style="color: white"> Printing... </p>
+</ngx-spinner>
+
+<body>
+    <mat-toolbar matTooltip="">
+        <button mat-raised-button color="primary" (click)="printResumido()">Resumida </button>
+        <button mat-raised-button color="primary" (click)="printDetalle()">Detallada </button>
+
+    </mat-toolbar>
+    <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(comment) "></div>
+</body>

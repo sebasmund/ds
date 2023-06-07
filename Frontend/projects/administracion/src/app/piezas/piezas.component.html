@@ -1,0 +1,32 @@
+
+<h2 mat-dialog-title>Pre-existencia o Lesión</h2>
+
+<mat-dialog-content  class="mat-typography">
+    
+
+    
+    
+    <h3>{{titulo1}}</h3>
+    <mat-button-toggle-group    [(ngModel)]="selected" *ngIf="data">
+        <mat-button-toggle value="{{i.co_estado}}" aria-label="Text align left"  *ngFor=" let i of data.pre_existencias" >
+            <img cImg height="86" rounded src='{{"assets/"+i.imagen}}' thumbnail width="36" /><br>
+          <p class="letra">{{i.Descripcion}}</p>
+        </mat-button-toggle>
+    </mat-button-toggle-group>   
+    <br>
+    <h3>{{titulo2}}</h3>
+    
+    <mat-button-toggle-group    [(ngModel)]="selected" *ngIf="data">
+        <mat-button-toggle value="{{i.co_estado}}" aria-label="Text align left"     *ngFor=" let i of data.lesiones" >
+           
+            <img cImg height="86" rounded src='{{"assets/"+i.imagen}}' thumbnail width="36" /><br>
+            <p class="letra">{{i.Descripcion}}</p>
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button class="btn btn-light " mat-button mat-dialog-close cdkFocusInitial>Cancelar</button>
+  <button class="btn btn-success " [mat-dialog-close]="true"  [disabled]="selected==''" (click)="onSubmit()">Guardar</button>
+</mat-dialog-actions>

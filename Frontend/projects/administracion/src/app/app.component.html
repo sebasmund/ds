@@ -1,0 +1,33 @@
+<mat-toolbar color="primary" *ngIf="token">
+    <span><img src="assets\1.png" alt="logo" class="logo-image"></span><span>{{title}}</span>
+    <span class="example-spacer"></span>
+    
+    
+    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="onLogouton();">
+      <mat-icon aria-label="Side nav toggle icon">close</mat-icon>
+    </button>
+
+
+    <!-- <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" (click)="onLogouton()" *ngIf="usuario">
+        <mat-icon >exit_to_app</mat-icon>
+      </button> -->
+    </mat-toolbar>
+  <mat-toolbar color="gray" *ngIf="token">
+    <span class="title-center"></span>
+    <ul class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link flexContainer" routerLink="agenda"  routerLinkActive="active"><mat-icon class="customIcon">calendar_today</mat-icon><span class="customSpan">Agenda</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link flexContainer" routerLink="paciente" routerLinkActive="active"><mat-icon class="customIcon">group</mat-icon><span  class="customSpan">Pacientes</span></a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" routerLink="Cajas">Cajas</a>
+        </li>    
+    </ul>
+    <span class="title-center"></span>
+  </mat-toolbar>
+  <!-- Add Content Here -->
+  
+  <router-outlet></router-outlet>
+

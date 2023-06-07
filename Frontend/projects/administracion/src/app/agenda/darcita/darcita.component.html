@@ -1,0 +1,92 @@
+
+ <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#fff" type = "timer" [fullScreen] = "false"><p style="color: white" > Loading... </p></ngx-spinner>
+<h4>Dar cita (agendar)</h4>
+ <mat-dialog-content> 
+    <div class="container" >
+        <div class="row">
+            <div class="col-3" style="padding: 0px; text-align:left">
+                        <form [formGroup]="service.formCita" class="normal-form" (submit)="onSubmit()">
+                        <div  id="contenedor2">
+                        
+                            
+                            <mat-form-field>
+                                <mat-select placeholder="Doctor"  formControlName="doctor" MatInput (selectionChange)="onChange($event.value)">
+                                    <mat-option *ngFor="let doc of doctores " [value]="doc.co_doctor">
+                                        {{doc.nombre_doc}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-select placeholder="Duración"  formControlName="tiempo" MatInput >
+                                    <mat-option *ngFor="let tie of tiempos " [value]="tie.orden">
+                                        {{tie.intervalo+tie.unidad}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field class="example-full-width" >
+                                <mat-label>Paciente</mat-label>
+                                    <input type="text" matInput  formControlName="paciente" [matAutocomplete]="auto">
+                                    <mat-autocomplete #auto="matAutocomplete"  [displayWith]="getTitle.bind(this)" (optionSelected)="onSelectionChange($event)">
+                                        <mat-option *ngFor="let pac of pacientes" [value]="pac.co_paciente">
+                                            {{pac.paciente}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                            </mat-form-field>
+                            <button *ngIf="true" mat-raised-button color="primary" mat-dialog-close type="submit" [disabled]="!service.formCita.valid">Grabar</button>
+                            <button *ngIf="true" mat-raised-button color="warn" mat-dialog-close type="button" (click)="onClose(false)">Salir</button>
+
+
+
+                        
+                        </div>
+                        
+                    </form>
+            </div>
+
+            <div class="col-9" style="text-align:left;">
+                <div class="container">
+                <div class="row">
+                <div class="col-6" style="text-align:left;">
+                    <button  mat-flat-button (click)="anterior()" *ngIf=" this.service.formCita.get('doctor').value">< Semana Anterior</button>
+                </div>
+                <div class="col-6" style="text-align:right;">
+                    <button  mat-flat-button (click)="siguiente()" *ngIf="this.service.formCita.get('doctor').value">Semana siguiente ></button>
+                </div>
+                
+                </div>
+                
+                <div class="row">
+                <div class="col-12">
+                    <div id="contenedor" *ngFor="let it of data">
+                        <table style=" border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px" >
+                            
+                            <tr><th style=" border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px">{{dia(it.Fecha)}}</th></tr>
+                            <tr *ngFor="let i of it.horas">
+                            <td style="text-align: center;">
+                            
+                                <section class="example-section">
+                                    <mat-checkbox class="example-margin" [(ngModel)]="i.verificado" (change)="checkValue($event,i)"  [ngClass]="{'make-back': i.verificado}"> {{i.hora.substring(0,5)}} </mat-checkbox>
+                                
+                                </section>
+                                
+                                
+                            </td>
+                            </tr>
+                        
+                        </table> 
+                    </div>
+                </div>
+                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+       
+    
+
+
+</mat-dialog-content>
+

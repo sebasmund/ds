@@ -1,0 +1,184 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="large" color="#fff" type="timer" [fullScreen]="false" *ngIf="index==1">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>
+<div class="contenedor">
+  <mat-toolbar color="gray">
+
+    <ul class="nav justify-content-center">
+      <a class="navbar-brand">Agenda</a>
+
+
+    </ul>
+    <span class="title-center"></span>
+    <button class="btn btn-outline-success my-2 my-sm-0" (click)="darCita()">Dar cita</button>
+  </mat-toolbar>
+
+  <div id="menu">
+
+    <mat-card class="demo-inline-calendar-card">
+      <mat-calendar [(selected)]="fecha" (selectedChange)="onDateChange($event)"></mat-calendar>
+    </mat-card>
+    <div *ngIf="index==0">
+
+
+      <ul class="checkbox-items">
+
+        <li *ngFor="let item of checkboxesDataList">
+          <br>
+          <input class="example-margin" type="checkbox" [(ngModel)]="item.isChecked"
+            (change)="changeSelection()">{{item.label}}
+
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <mat-tab-group mat-align-tabs="center" (selectedIndexChange)="sel($event)">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">thumb_up</mat-icon>
+        Diaria
+      </ng-template>
+      <div class="diario">
+
+        <mat-table [dataSource]="dataSource" class="example-table" multiTemplateDataRows class="mat-elevation-z8"
+          matSort>
+
+
+          <ng-container matColumnDef="hora_desde">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Hora </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <caption>{{element.hora_desde}}<br>
+                <mat-icon class="customIcon">arrow_downward</mat-icon><br>{{element.hora_hasta}}
+              </caption>
+            </mat-cell>
+            <mat-footer-cell *matFooterCellDef><strong></strong></mat-footer-cell>
+          </ng-container>
+          <ng-container matColumnDef="paciente">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Paciente </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <caption>{{element.paciente}}<br>
+                <mat-icon class="customIcon">phone_in_talk</mat-icon>{{element.telef_fijo}}<br>
+                <mat-icon class="customIcon">tap_and_play</mat-icon>{{element.telef_movil}}
+              </caption>
+            </mat-cell>
+            <mat-footer-cell *matFooterCellDef><strong></strong></mat-footer-cell>
+          </ng-container>
+          <ng-container matColumnDef="nombre_doc">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Doctor </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <caption>Dr(a). {{element.nombre_doc}}</caption>
+            </mat-cell>
+            <mat-footer-cell *matFooterCellDef><strong></strong></mat-footer-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="co_estatus">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Estatus </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <caption>
+                <mat-form-field>
+
+                  <mat-select placeholder="{{service.formVista.get('co_estatus').value}}"
+                    [(ngModel)]="element.co_estatus" MatInput (selectionChange)="select(element)">
+                    
+                    <mat-option *ngFor="let est of checkboxesDataList" [value]="est.id">
+                      {{est.label }}
+                    </mat-option>
+                  </mat-select>
+                  
+                </mat-form-field>
+
+              </caption>
+            </mat-cell>
+            <mat-footer-cell *matFooterCellDef><strong></strong></mat-footer-cell>
+          </ng-container>
+
+
+          <mat-header-row *matHeaderRowDef="columnsToDisplay ; sticky: true"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: columnsToDisplay;" class="example-element-row"></mat-row>
+          <mat-footer-row *matFooterRowDef="columnsToDisplay;sticky: true"></mat-footer-row>
+        </mat-table>
+      </div>
+
+    </mat-tab>
+    <mat-tab label="Semanal">
+
+
+      <div class="container" style="width:auto">
+        <div class="row">
+          <div class="col-1" style="padding: 0px; text-align:left;;width:auto">
+            <mat-form-field>
+              <mat-select placeholder="Doctor" [(ngModel)]="doctorSelected" MatInput
+                (selectionChange)="onChange($event.value)">
+                <mat-option *ngFor="let doc of doctores " [value]="doc.co_doctor">
+                  {{doc.nombre_doc}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-1" style="padding: 0px; text-align:left;;width:auto">
+            <table
+              style=" border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px">
+              <tr>
+                <th
+                  style="text-align: center; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px">
+                  Horas</th>
+              </tr>
+              <tr *ngFor="let it of horas"
+                style=" border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1pxp;padding: 0px">
+                <td matTooltip="{{it.hora}}" height="{{ 25 }}" width="100px" style="text-align: center;">{{it.hora}}
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-10" style="padding: 0px;text-align:left;width:auto">
+            <div id="contenedor" *ngFor="let it of data">
+              <table
+                style=" border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px">
+                <tr>
+                  <th
+                    style="text-align: center; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px">
+                    {{dia(it.fecha)}}</th>
+                </tr>
+                <tr [attr.rowspan]=i.rowspan *ngFor="let i of it.items"
+                  style=" border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1pxp;padding: 0px">
+                  <td matTooltip="{{i.hora}}" height="{{ i.rowspan*25 }}" width="150px"
+                    style="text-align: center;padding: 2.1px;"
+                    [ngStyle]="{'background-color': i.paciente===null ? '#e3fae3':'#FFF'}">{{i.paciente}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="col-1" style="padding: 0px; text-align:right;;width:auto">
+            <table
+              style=" border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px">
+              <tr>
+                <th
+                  style="text-align: center; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px">
+                  Horas</th>
+              </tr>
+              <tr *ngFor="let it of horas"
+                style=" border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1pxp;padding: 0px">
+                <td matTooltip="{{it.hora}}" height="{{ 25 }}" width="100px" style="text-align: center;">{{it.hora}}
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+    </mat-tab>
+
+  </mat-tab-group>
+
+
+
+
+</div>

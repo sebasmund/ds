@@ -1,0 +1,54 @@
+.example-spacer {
+    flex: 1 1 auto;
+  }
+
+  mat-sidenav-content {
+    height: 100vh;
+  }
+
+  .circular {
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    padding: 15px;
+}
+
+.contenedor {
+ 
+    display: flex;
+    justify-content: center;
+    bottom: 0px;
+    
+}
+
+mat-nav-list{
+  display: contents;
+}
+
+.logo-image{
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 10px;
+}
+
+.mat-expansion-panel{
+  display:contents;
+}
+mat-panel-title {
+  flex-basis: 100%;
+}
+mat-panel-description {
+  flex-basis: 100%;
+}
+.example-headers-align span  {
+  margin-left: 8px;
+}
+
+.gap {
+  margin-right: 10px;
+}
+.title-center {
+  margin: 0 auto;
+}

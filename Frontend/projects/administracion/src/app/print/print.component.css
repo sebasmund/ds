@@ -1,0 +1,13 @@
+
+body {
+           
+    min-height: 100vh;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 8px;
+    line-height:1;
+    text-align: center;
+}
+
+button{
+    margin: 5px;
+}

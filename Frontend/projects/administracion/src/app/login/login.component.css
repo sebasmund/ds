@@ -1,0 +1,21 @@
+.main-div{
+    padding: 17px;
+    width: 280px;
+    position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%,-50%);
+  }
+  .center{
+   text-align: center;
+   padding: 5%;
+  }
+  .img{
+    padding: 15%;
+  }
+  mat-form-field{
+    width: 100%;
+  }
+  .mat-card:hover {
+    background: whitesmoke;
+  }

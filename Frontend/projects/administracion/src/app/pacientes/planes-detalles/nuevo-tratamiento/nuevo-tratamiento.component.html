@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>Tratamiento</h2>
+<div class="example-container"> 
+
+
+<form [formGroup]="service.formDetalleTrata" class="normal-form" (submit)="onSubmit()">
+    <mat-dialog-content class="mat-typography">
+     
+           <div class="row">
+              
+                <mat-form-field hidden>
+                    <input formControlName="co_tratamiento" matInput  placeholder="Código del paciente"  >
+                </mat-form-field>
+                
+              
+
+            </div> 
+
+               
+            <div class="row">
+              <!--banco destino-->
+          <mat-form-field >
+            <mat-label>Tratamiento</mat-label>
+            <mat-select placeholder="Prestación*" formControlName="co_prestacion" MatInput>
+              <mat-error *ngIf="service.formDetalleTrata.controls['co_prestacion'].errors?.['required']">Este campo es obligatorio
+              </mat-error>
+              <mat-option *ngFor="let pres of prestaciones" [value]="pres.id">
+                {{pres.prestacion }} {{pres.monto | currency }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="service.formDetalleTrata.get('co_prestacion').hasError('required')">
+              Se requiere un tratamiento.
+            </mat-error>
+          </mat-form-field>
+
+       </div>
+
+
+                    
+    
+            <!-- <div>{{service.formVis.value | json}}{{validForm()}}</div> -->
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+          <button  mat-raised-button color ="primary"  type="submit" [disabled]="!service.formDetalleTrata.valid">Grabar</button>
+          <button mat-raised-button color ="warn"  cdkFocusInitial (click)="onClose(false)">Close</button>
+        </mat-dialog-actions>  
+</form>
+</div>

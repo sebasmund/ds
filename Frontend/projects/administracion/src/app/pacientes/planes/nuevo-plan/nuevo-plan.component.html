@@ -1,0 +1,51 @@
+<h2 mat-dialog-title>Paciente</h2>
+<div class="example-container"> 
+
+
+<form [formGroup]="service.formTrata" class="normal-form" (submit)="onSubmit()">
+    <mat-dialog-content class="mat-typography">
+     
+           <div class="row">
+              
+                <mat-form-field hidden>
+                    <input formControlName="co_paciente" matInput  placeholder="Código del paciente"  >
+                </mat-form-field>
+                
+                <mat-form-field >
+                    <input  formControlName="tratamiento" matInput  placeholder="Tratamiento"  >
+                    <mat-error *ngIf="service.formTrata.controls['tratamiento'].errors?.['minlength']">Min. 3 caracteres</mat-error>
+                    <mat-error *ngIf="service.formTrata.controls['tratamiento'].errors?.['maxlength']">Máx. 50 caracteres</mat-error>
+                </mat-form-field>
+
+            </div> 
+
+               
+            <div class="row">
+              <!--banco destino-->
+          <mat-form-field >
+            <mat-label>Convenio</mat-label>
+            <mat-select placeholder="Doctor*" formControlName="co_doctor" MatInput>
+              <mat-error *ngIf="service.formTrata.controls['co_doctor'].errors?.['required']">Este campo es obligatorio
+              </mat-error>
+              <mat-option *ngFor="let doc of doctores" [value]="doc.co_doctor">
+                {{doc.nombre_doc }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="service.formTrata.get('co_doctor').hasError('required')">
+              Se requiere un convenio.
+            </mat-error>
+          </mat-form-field>
+
+       </div>
+
+
+                    
+    
+            <!-- <div>{{service.formVis.value | json}}{{validForm()}}</div> -->
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+          <button  mat-raised-button color ="primary"  type="submit" [disabled]="!service.formTrata.valid">Grabar</button>
+          <button mat-raised-button color ="warn"  cdkFocusInitial (click)="onClose(false)">Close</button>
+        </mat-dialog-actions>  
+</form>
+</div>

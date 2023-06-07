@@ -1,0 +1,67 @@
+<div>
+<mat-toolbar color="gray" *ngIf="selectedSup!='' || selectedInf!=''" >
+
+    <ul class="nav justify-content-center">
+      <a class="navbar-brand">{{selectedSup.length+selectedInf.length}} Pieza(s) seleccionada(s)</a>
+
+
+    </ul>
+    <span class="example-spacer"></span>
+    <button class="btn btn-outline-primary my-2 my-sm-0" (click)="aplicar()">Definir Lesión o Pre existencia</button>
+  </mat-toolbar>
+
+
+
+<h1  class="example-selected-value">Odontograma</h1>
+
+<mat-button-toggle-group   multiple [(ngModel)]="selectedSup" *ngIf="data" style="width:100%">
+    <mat-button-toggle value="{{i.pieza}}" aria-label="Text align left"  *ngFor=" let i of data.superior" [disabled]="i.estado!=0" >
+        <img cImg height="86" rounded src='{{"assets/"+i.imagen}}' thumbnail width="36" /><br>
+      <span>{{i.pieza}}</span>
+    </mat-button-toggle>
+</mat-button-toggle-group>   
+<div class="example-selected-value" *ngIf="selectedSup!=''">Superior: {{selectedSup}}</div>
+<div class="example-selected-value" *ngIf="selectedInf!=''">Inferior: {{selectedInf}}</div>
+<mat-button-toggle-group   multiple [(ngModel)]="selectedInf" *ngIf="data">
+    <mat-button-toggle value="{{i.pieza}}" aria-label="Text align left"     *ngFor=" let i of data.inferior"[disabled]="i.estado!=0" >
+        <span>{{i.pieza}}</span><br>
+        <img cImg height="86" rounded src='{{"assets/"+i.imagen}}' thumbnail width="36" />
+    </mat-button-toggle>
+</mat-button-toggle-group>
+<br>
+
+
+
+<mat-table  [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8"  matSort *ngIf="dataSource">
+  <ng-container matColumnDef="{{column.name}}" *ngFor="let column of columns">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{column.label}} </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element[column.name] | formatCell: column.format }}
+      </mat-cell>
+
+  </ng-container>
+
+  <ng-container matColumnDef="acctionButton">
+      <mat-header-cell *matHeaderCellDef>Anular</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+          
+     
+        <button type="button" class="btn btn-warning btn-sm" (click)="delete(element.id)" >
+                  <mat-icon class="v-align-middle" color="primary">delete</mat-icon>
+                  <span class="v-align-middle">Anular</span>
+
+
+              </button>
+     
+
+
+      </mat-cell>
+  </ng-container>
+
+  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+
+
+  <mat-header-row *matHeaderRowDef="columnsToDisplay.concat(['acctionButton'])"></mat-header-row>
+  <mat-row *matRowDef="let element; columns: columnsToDisplay.concat(['acctionButton']);"
+      [class.example-element-row]="true" class="example-element-row"></mat-row>
+
+</mat-table>

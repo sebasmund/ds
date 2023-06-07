@@ -1,0 +1,42 @@
+<mat-toolbar color="gray">
+
+  <ul class="nav justify-content-center">
+
+
+  </ul>
+  <span class="example-spacer"></span>
+  <button class="btn btn-outline-primary my-2 my-sm-0" (click)="nuevo()">Nuevo tratamiento</button>
+</mat-toolbar>
+
+<div class="alert alert-success alert-dismissible fade show" *ngIf="noData">
+  <strong>¡Que bueno!</strong> No hay tratamientos.
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+
+<div class="col-md-12 mx-auto my-1" *ngFor="let item of data">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{item.nombre}}</mat-card-title>
+      <mat-card-subtitle>
+        <div class="row">
+          <div class="col-md-4 mx-auto">
+            Prosional: <br> Dr(a): {{item.nombre_doc}}
+          </div>
+          <div class="col-md-4 mx-auto">
+            Fecha Tratamiento: <br> {{item.fecha | formatCell: 'date'}}
+          </div>
+          <div class="col-md-4 mx-auto">
+            Progreso:
+            <circle-progress [percent]="item.hecho/item.total*100" [radius]="25" [outerStrokeWidth]="4" [innerStrokeWidth]="2"
+              [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="true" [titleFontSize]="'8'" [showSubtitle]="false"
+              [animationDuration]="300"></circle-progress>
+          </div>
+        </div>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions align="end">
+
+      <button mat-button (click)="ver(item.co_tratamiento)">Ver Tratamiento...</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

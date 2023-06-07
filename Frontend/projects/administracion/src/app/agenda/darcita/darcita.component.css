@@ -1,0 +1,30 @@
+#contenedor {
+    float: left;
+    width: auto;
+    position: relative;
+    }
+    #contenedor2 {
+        float: left;
+        width: auto;
+        }
+    .example-section {
+        display: flex;
+        align-content: center;
+        align-items: center;
+        height: auto;
+      }
+      .example-margin {
+        margin: 0 10px;
+      }
+      .make-back{
+        background-color: aqua;
+      }
+
+      .example-spacer {
+        flex: 1 1 auto;
+      }
+
+      mat-form-field{
+        width: 100%;
+      }
+    

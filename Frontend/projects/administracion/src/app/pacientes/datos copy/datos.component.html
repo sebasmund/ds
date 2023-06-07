@@ -1,0 +1,136 @@
+
+
+<div class="example-container"> 
+
+
+<form [formGroup]="service.formPaciente" class="normal-form" (submit)="onSubmit()">
+    <mat-dialog-content class="mat-typography">
+     
+            <div class="controles-container">
+              
+                <mat-form-field hidden>
+                    <input formControlName="co_paciente" matInput  placeholder="Código del paciente"  >
+                </mat-form-field>
+                
+                <mat-form-field >
+                    <input  formControlName="nombre_pac" matInput  placeholder="Nombre del paciente"  >
+                    <mat-error *ngIf="service.formPaciente.controls['nombre_pac'].errors?.['minlength']">Min. 3 caracteres</mat-error>
+                    <mat-error *ngIf="service.formPaciente.controls['nombre_pac'].errors?.['maxlength']">Máx. 50 caracteres</mat-error>
+                </mat-form-field>
+
+                <mat-form-field >
+                    <input  formControlName="apellidos_pac" matInput  placeholder="Apellidos del paciente"  >
+                    <mat-error *ngIf="service.formPaciente.controls['apellidos_pac'].errors?.['minlength']">Min. 10 caracteres</mat-error>
+                    <mat-error *ngIf="service.formPaciente.controls['apellidos_pac'].errors?.['maxlength']">Máx. 50 caracteres</mat-error>
+                </mat-form-field>
+
+                <!--cedula-->
+                <mat-form-field class="ancho-medio" appearance="outline">
+                    <mat-label>Cédula</mat-label>
+                    <input formControlName="ced_pac" matInput mask="separator.0" prefix="V-" thousandSeparator="." separatorLimit="10000000"class="left"
+                    [hiddenInput]="true" placeholder="V-99.999.999">
+                    <mat-error *ngIf="service.formPaciente.get('ced_pac').hasError('required')">
+                    Se requiere Cédula de quién hace el pago.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field >
+                    <input  type="email" formControlName="email_pac" matInput  placeholder="Email"  >
+                    <mat-error *ngIf="service.formPaciente.controls['email_pac'].errors?.['email']">Email invalido</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="ancho-medio">
+                    <input [dropSpecialCharacters]="true" mask="(000) 000-0000" formControlName="telef_fijo" matInput  placeholder="Telefono Casa"  >
+                    <mat-error *ngIf="service.formPaciente.controls['telef_fijo'].errors?.['minlength']">Faltán caracteres</mat-error>
+                    
+                </mat-form-field>
+
+                <mat-form-field class="ancho-medio">
+                    <input [dropSpecialCharacters]="true"  mask="(000) 000-0000" formControlName="telef_movil" matInput  placeholder="Celular"  >
+                    <mat-error *ngIf="service.formPaciente.controls['telef_movil'].errors?.['minlength']">Faltán caracteres</mat-error>
+                </mat-form-field>
+
+              <!--banco destino-->
+          <mat-form-field appearance="outline">
+            <mat-label>Convenio</mat-label>
+            <mat-select placeholder="Convenio*" formControlName="convenio_pac" MatInput>
+              <mat-error *ngIf="service.formPaciente.controls['convenio_pac'].errors?.['required']">Este campo es obligatorio
+              </mat-error>
+              <mat-option *ngFor="let con of convenio" [value]="con.cod">
+                {{con.desc }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="service.formPaciente.get('convenio_pac').hasError('required')">
+              Se requiere un convenio.
+            </mat-error>
+          </mat-form-field>
+
+          <!--sexo:-->
+          <mat-form-field appearance="outline">
+            <mat-label>Sexo</mat-label>
+            <mat-select placeholder="Sexo*" formControlName="sexo" MatInput>
+              <mat-error *ngIf="service.formPaciente.controls['sexo'].errors?.['required']">Este campo es obligatorio
+              </mat-error>
+              <mat-option *ngFor="let sex of sexos" [value]="sex.cod">
+                {{sex.desc }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="service.formPaciente.get('sexo').hasError('required')">
+              Se requiere un Sexo.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Fecha de Nacimiento</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="fecha_nac_pac" [max]="maxDate" [min]="minDate" 
+             >
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+
+            <mat-error *ngIf="service.formPaciente.get('fecha_nac_pac').hasError('required')">
+              Se requiere una fecha valida.
+            </mat-error>
+            <mat-error *ngIf="service.formPaciente.get('fecha_nac_pac').hasError('matDatepickerMin')">
+              Fecha por debajo de lo permitido.
+            </mat-error>
+            <mat-error *ngIf="service.formPaciente.get('fecha_nac_pac').hasError('matDatepickerMax')">
+              Fecha mayor a hoy.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <textarea  formControlName="direccion_pac" matInput placeholder="Dirección del paciente"  ></textarea>
+            <mat-error *ngIf="service.formPaciente.controls['direccion_pac'].errors?.['required']">Este campo es obligatorio</mat-error>
+            <mat-error *ngIf="service.formPaciente.controls['direccion_pac'].errors?.['required']">Min. 10 caracteres</mat-error>
+            <mat-error *ngIf="service.formPaciente.controls['direccion_pac'].errors?.['maxlength']">Máx. 40 caracteres</mat-error>
+        </mat-form-field>
+
+
+                <mat-form-field>
+                  
+                  <mat-select placeholder="Estados"  [(value)]="selected" MatInput >
+                    <mat-option *ngFor="let edo of estado " [value]="edo.co_edo">
+                          {{edo.nomb_edo}}
+                      </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field>
+                 <mat-select placeholder="Ciudades" formControlName="ciudad_pac" MatInput >
+                    <mat-option *ngFor="let ciu of ciudad | Filter:selected" [value]="ciu.co_ciudad">
+                          {{ciu.nomb_ciudad}}
+                      </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+
+                    
+            </div>
+            <!-- <div>{{service.formVis.value | json}}{{validForm()}}</div> -->
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+          <button  mat-raised-button color ="primary"  type="submit" [disabled]="!service.formPaciente.valid">Grabar</button>
+  
+        </mat-dialog-actions>  
+</form>
+</div>

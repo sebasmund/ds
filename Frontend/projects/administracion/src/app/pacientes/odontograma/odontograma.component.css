@@ -1,0 +1,39 @@
+mat-button-toggle-group {
+    box-shadow: none;
+    flex-wrap: wrap;
+  }
+  
+  mat-button-toggle {
+      border: 1px rgba(0,0,0,0) solid !important;
+      margin: 1px !important;
+      padding: 0px !important;
+      z-index: 3 !important;
+  }
+  
+  mat-button-toggle:hover {
+      border: 1px #ADD8E6  solid !important;
+      background-color:white !important;
+      border-radius: 5px !important;
+  }
+  
+  .mat-button-toggle-checked {
+        box-shadow: 0 0 30px #000 !important;
+      border: 1px #000 solid !important;
+      border-radius: 5px !important;
+      background-color:#ADD8E6  !important;
+  }
+  
+  .mat-button-toggle-input {
+      background-color: none !important;
+      padding-left: 0px !important;
+  }
+  .example-selected-value{
+    text-align: center;
+  }
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  
+  .v-align-middle { 
+    vertical-align: middle;
+}

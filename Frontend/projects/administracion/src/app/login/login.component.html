@@ -1,0 +1,37 @@
+
+<form [formGroup]="service.form" class="normal-form" (submit)="login()">
+<div class="main-div" >
+    <mat-card>
+        <div class="center">
+            <img class="img" mat-card-image src="assets/2.png">
+        <mat-card-title>Login</mat-card-title>
+        </div>
+        <mat-card-content>
+            <p
+            ></p>
+            <p>
+                <mat-form-field>
+                    <input AutoFocus formControlName="user" matInput placeholder="Usuario">
+                    <mat-error *ngIf="service.form.controls['user'].errors?.['required']">Este campo es obligatorio</mat-error>
+                    <mat-error *ngIf="service.form.controls['user'].errors?.['maxlength']">Máximo 10 caracteres</mat-error>
+                    <mat-error *ngIf="service.form.controls['user'].errors?.['minlength']">Mínimo 5 caracteres</mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field>
+                    <input type="password" formControlName="password" matInput placeholder="Password" #yourControlName>
+                    <mat-error *ngIf="service.form.controls['password'].errors?.['required']">Este campo es obligatorio</mat-error>
+                    <mat-error *ngIf="service.form.controls['password'].errors?.['maxlength']">Máximo 50 caracteres</mat-error>
+                    <mat-error *ngIf="service.form.controls['password'].errors?.['minlength']">Mínimo 8 caracteres</mat-error>
+                </mat-form-field>
+            </p>
+            
+            <div class="center">
+                <button mat-raised-button color ="primary" type="submit" [disabled]="service.form.invalid">Iniciar Sesión</button>
+            </div>
+            
+        </mat-card-content>
+
+    </mat-card>
+</div>
+</form>
